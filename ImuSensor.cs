@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2019-2020 LG Electronics, Inc.
+ * Copyright (c) 2019-2021 LG Electronics, Inc.
  *
  * This software contains code licensed as described in LICENSE.
  *
@@ -15,8 +15,6 @@ using Simulator.Bridge;
 using Simulator.Bridge.Data;
 using Simulator.Utilities;
 using Simulator.Sensors.UI;
-using System.Collections;
-using Simulator.Analysis;
 
 #pragma warning disable CS0649
 
@@ -37,8 +35,7 @@ namespace Simulator.Sensors
         Publisher<ImuData> Publish;
         Publisher<CorrectedImuData> CorrectedWriter;
 
-        Queue<Tuple<double, float, Action>> MessageQueue =
-            new Queue<Tuple<double, float, Action>>();
+        Queue<Tuple<double, float, Action>> MessageQueue = new Queue<Tuple<double, float, Action>>();
         bool Destroyed = false;
         bool IsFirstFixedUpdate = true;
         double LastTimestamp;
@@ -47,29 +44,29 @@ namespace Simulator.Sensors
         Vector3 LastVelocity;
 
         [AnalysisMeasurement(MeasurementType.Distance)]
-        float minX;
+        public float minX;
         [AnalysisMeasurement(MeasurementType.Distance)]
-        float maxX;
+        public float maxX;
         [AnalysisMeasurement(MeasurementType.Angle)]
-        float minGyroX;
+        public float minGyroX;
         [AnalysisMeasurement(MeasurementType.Angle)]
-        float maxGyroX;
+        public float maxGyroX;
         [AnalysisMeasurement(MeasurementType.Distance)]
-        float minY;
+        public float minY;
         [AnalysisMeasurement(MeasurementType.Distance)]
-        float maxY;
+        public float maxY;
         [AnalysisMeasurement(MeasurementType.Angle)]
-        float minGyroY;
+        public float minGyroY;
         [AnalysisMeasurement(MeasurementType.Angle)]
-        float maxGyroY;
+        public float maxGyroY;
         [AnalysisMeasurement(MeasurementType.Distance)]
-        float minZ;
+        public float minZ;
         [AnalysisMeasurement(MeasurementType.Distance)]
-        float maxZ;
+        public float maxZ;
         [AnalysisMeasurement(MeasurementType.Angle)]
-        float minGyroZ;
+        public float minGyroZ;
         [AnalysisMeasurement(MeasurementType.Angle)]
-        float maxGyroZ;
+        public float maxGyroZ;
 
         ImuData latestData;
         
