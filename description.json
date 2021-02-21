@@ -1,7 +1,7 @@
 {
   "name": "IMU Sensor",
   "accessType": "public",
-  "description": "Example of an IMU sensor.",
+  "description": "This sensor output at a fixed rate of 100 Hz. IMU publishes data on topics where the 2nd topic has corrected IMU data.\nSee {{DOCS_HOST}}/docs/python-api/#imu for more details.",
   "licenseName": "LG Content",
   "copyright": "LG Electronics Inc.",
   "tags": [
