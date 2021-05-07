@@ -40,7 +40,7 @@ namespace Simulator.Sensors
         bool IsFirstFixedUpdate = true;
         double LastTimestamp;
 
-        Rigidbody RigidBody;
+        private IVehicleDynamics Dynamics;
         Vector3 LastVelocity;
 
         [AnalysisMeasurement(MeasurementType.Distance)]
@@ -84,7 +84,7 @@ namespace Simulator.Sensors
 
         void Start()
         {
-            RigidBody = GetComponentInParent<Rigidbody>();
+            Dynamics = GetComponentInParent<IVehicleDynamics>();
             Task.Run(Publisher);
         }
 
@@ -157,7 +157,7 @@ namespace Simulator.Sensors
             minZ = Mathf.Min(minZ, position.z);
             maxZ = Mathf.Max(maxZ, position.z);
 
-            var velocity = transform.InverseTransformDirection(RigidBody.velocity);
+            var velocity = transform.InverseTransformDirection(Dynamics.Velocity);
             velocity.Set(velocity.z, -velocity.x, velocity.y);
             var acceleration = (velocity - LastVelocity) / Time.fixedDeltaTime;
             LastVelocity = velocity;
@@ -165,7 +165,7 @@ namespace Simulator.Sensors
             var localGravity = transform.InverseTransformDirection(Physics.gravity);
             acceleration -= new Vector3(localGravity.z, -localGravity.x, localGravity.y);
 
-            var angularVelocity = RigidBody.angularVelocity;
+            var angularVelocity = Dynamics.AngularVelocity;
             angularVelocity.Set(-angularVelocity.z, angularVelocity.x, -angularVelocity.y); // converting to right handed xyz
 
             var orientation = transform.rotation;
