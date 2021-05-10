@@ -70,7 +70,8 @@ namespace Simulator.Sensors
 
         ImuData latestData;
         
-        public override SensorDistributionType DistributionType => SensorDistributionType.HighLoad;
+        public override SensorDistributionType DistributionType => SensorDistributionType.MainOrClient;
+        public override float PerformanceLoad { get; } = 0.2f;
 
         public override void OnBridgeSetup(BridgeInstance bridge)
         {
@@ -82,15 +83,21 @@ namespace Simulator.Sensors
             }
         }
 
-        void Start()
+        protected override void OnDestroy()
+        {
+            base.OnDestroy();
+            Destroyed = true;
+        }
+
+        protected override void Initialize()
         {
             Dynamics = GetComponentInParent<IVehicleDynamics>();
             Task.Run(Publisher);
         }
 
-        void OnDestroy()
+        protected override void Deinitialize()
         {
-            Destroyed = true;
+            
         }
 
         void Publisher()
